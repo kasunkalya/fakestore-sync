@@ -33,7 +33,8 @@ final class Plugin {
         register_activation_hook( FAKESTORE_SYNC_PATH . 'fakestore-sync.php', array( $this, 'on_activation' ) );
         register_deactivation_hook( FAKESTORE_SYNC_PATH . 'fakestore-sync.php', array( $this, 'on_deactivation' ) );
 
-        
+        require_once FAKESTORE_SYNC_PATH . 'includes/class-admin.php';
+        Admin::init();
     }
 
     public function on_activation() {
