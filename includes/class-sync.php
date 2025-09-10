@@ -42,7 +42,7 @@ class Sync {
         $response = wp_remote_get( $url, $args );
    
         if ( is_wp_error( $response ) ) {
-            error_log( 'FakeStore Sync error: ' . $response->get_error_message() );
+            error_log( 'error: ' . $response->get_error_message() );
             return [ 'imported' => 0, 'updated' => 0 ];
         }
 
@@ -50,7 +50,7 @@ class Sync {
         $data = json_decode( $body, true );
 
         if ( ! is_array( $data ) ) {
-            error_log( 'FakeStore Sync error: invalid response format' );
+            error_log( 'FakeStore Sync error' );
             return [ 'imported' => 0, 'updated' => 0 ];
         }
 

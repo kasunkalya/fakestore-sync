@@ -25,7 +25,6 @@ final class Plugin {
     private function setup() {
         $this->options = get_option( self::OPTION_KEY, array(
             'api_base'    => 'https://fakestoreapi.com',
-            'api_key'     => '',
             'last_sync'   => '',
             'last_counts' => array( 'imported' => 0, 'updated' => 0 ),
             'batch_size'  => 10,
@@ -44,12 +43,17 @@ final class Plugin {
     public function on_activation() {
         $defaults = array(
             'api_base'    => 'https://fakestoreapi.com',
-            'api_key'     => '',
             'last_sync'   => '',
             'last_counts' => array( 'imported' => 0, 'updated' => 0 ),
             'batch_size'  => 10,
         );
         add_option( self::OPTION_KEY, wp_parse_args( $this->options, $defaults ) );
+
+        $defaults = array(
+            'last_sync'   => '',
+            'last_counts' => array( 'imported' => 0, 'updated' => 0 ),
+        );
+        add_option( self::STATUS_OPTION_KEY, wp_parse_args( $this->options, $defaults ) );
     }
 
     public function on_deactivation() {

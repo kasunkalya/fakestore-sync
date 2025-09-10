@@ -41,7 +41,6 @@ class Admin {
 
             $new = [];
             $new['api_base']   = isset( $input['api_base'] ) ? esc_url_raw( trim( $input['api_base'] ) ) : ( $existing['api_base'] ?? 'https://fakestoreapi.com' );
-            $new['api_key']    = isset( $input['api_key'] ) ? sanitize_text_field( $input['api_key'] ) : ( $existing['api_key'] ?? '' );
             $new['batch_size'] = isset( $input['batch_size'] ) ? intval( $input['batch_size'] ) : ( $existing['batch_size'] ?? 10 );
 
             $new['last_sync']   = $existing['last_sync'] ?? '';
@@ -79,7 +78,7 @@ class Admin {
         $counts    = isset( $status['last_counts'] ) ? $status['last_counts'] : [ 'imported' => 0, 'updated' => 0 ];
         ?>
         <div class="wrap">
-            <h1><?php esc_html_e( 'FakeStore Sync (WooCommerce)', 'fakestore-sync' ); ?></h1>
+            <h1><?php esc_html_e( 'FakeStore Sync', 'fakestore-sync' ); ?></h1>
 
             <form method="post" action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>">
                 <?php
