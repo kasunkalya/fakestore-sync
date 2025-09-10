@@ -60,12 +60,6 @@ class Admin {
             echo '<input type="url" class="regular-text" name="' . esc_attr( $opt_key ) . '[api_base]" value="' . $val . '" required />';
         }, 'fakestore_sync', 'fakestore_sync_main_section' );
 
-        add_settings_field( 'fakestore_sync_api_key', __( 'API Key (optional)', 'fakestore-sync' ), function() use ( $opt_key ) {
-            $opts = get_option( $opt_key );
-            $val  = isset( $opts['api_key'] ) ? esc_attr( $opts['api_key'] ) : '';
-            echo '<input type="text" class="regular-text" name="' . esc_attr( $opt_key ) . '[api_key]" value="' . $val . '" />';
-        }, 'fakestore_sync', 'fakestore_sync_main_section' );
-
         add_settings_field( 'fakestore_sync_batch_size', __( 'Batch size', 'fakestore-sync' ), function() use ( $opt_key ) {
             $opts = get_option( $opt_key );
             $val  = isset( $opts['batch_size'] ) ? intval( $opts['batch_size'] ) : 10;
@@ -79,9 +73,10 @@ class Admin {
             wp_die( __( 'Insufficient permissions', 'fakestore-sync' ), 403 );
         }
 
-        $opts     = get_option( Plugin::OPTION_KEY, [] );
-        $last_sync = ! empty( $opts['last_sync'] ) ? $opts['last_sync'] : 'Never';
-        $counts    = isset( $opts['last_counts'] ) ? $opts['last_counts'] : [ 'imported' => 0, 'updated' => 0 ];
+  
+        $status     = get_option( Plugin::STATUS_OPTION_KEY, [] );
+        $last_sync = ! empty( $status['last_sync'] ) ? $status['last_sync'] : 'Never';
+        $counts    = isset( $status['last_counts'] ) ? $status['last_counts'] : [ 'imported' => 0, 'updated' => 0 ];
         ?>
         <div class="wrap">
             <h1><?php esc_html_e( 'FakeStore Sync (WooCommerce)', 'fakestore-sync' ); ?></h1>
@@ -93,6 +88,8 @@ class Admin {
                 submit_button();
                 ?>
             </form>
+
+             <hr>
 
             <h2><?php esc_html_e( 'Sync Info', 'fakestore-sync' ); ?></h2>
             <table class="widefat striped">
@@ -111,6 +108,8 @@ class Admin {
                     </tr>
                 </tbody>
             </table>
+
+            <hr>
 
             <h2><?php esc_html_e( 'Manual Sync', 'fakestore-sync' ); ?></h2>
             <p><?php esc_html_e( 'Click to fetch products from FakeStore API.', 'fakestore-sync' ); ?></p>
