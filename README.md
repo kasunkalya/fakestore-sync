@@ -1,8 +1,8 @@
 ## FakeStore Sync for WooCommerce
 
 A WordPress plugin that connects WooCommerce with the FakeStore API
-Contributors: Kasun Kalya
-Tags: woocommerce, fakestoreapi
+- Contributors: Kasun Kalya
+- Tags: woocommerce, fakestoreapi
 
 ## Features
 
